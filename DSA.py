@@ -457,7 +457,6 @@
 
 
 
-
 # STACK AND QUEUES
 # class Node:
 #     def __init__(self, value):
@@ -494,8 +493,33 @@
 #         temp.next = None
 #         self.height -= 1
 #         return temp
-#
-#
+
+
+def is_valid_parentheses(s):
+    # Create a new Stack to store opening parentheses
+    stack = []
+    # Mapping of closing to opening parentheses
+    mapping = {')': '(', ']': '[', '}': '{'}
+    # Iterate over each character in the string
+    for char in s:
+        # If char is a closing parenthesis
+        if char in mapping:
+            # Check if stack is empty or top of stack does not match opening parenthesis
+            if not stack or stack.pop() != mapping[char]:
+                return False
+        else:
+            # Push opening parenthesis onto the stack
+            stack.append(char)
+    # If the stack is empty, the parentheses are balanced
+    return not stack
+
+
+string1 = "()"
+string2 = "{]"
+print(is_valid_parentheses(string1))
+print(is_valid_parentheses(string2))
+
+
 # my_stack = Stack(3)
 # my_stack.push(4)
 # my_stack.push(5)
