@@ -631,42 +631,44 @@
 # my_tree.insert(1)
 # my_tree.insert(3)
 # my_tree.insert(27)
-#
-# #print(my_tree.root.value)
-# #print(my_tree.root.left.value)
-# #print(my_tree.root.right.value)
+
+# print(my_tree.root.value)
+# print(my_tree.root.left.value)
+# print(my_tree.root.right.value)
 #
 # print(my_tree.contains(27))
 # print(my_tree.contains(4))
 
 
 # HASH TABLES
+# Hash tables are deterministic which means we know the address and we can fetch any value based on our input
+# While initializing a hash table, we create an address with a size of our choice
 # class HashTable:
 #     def __init__(self, size=7):
-#         self.data_map = [None] * size
+#         self.data_table = [None] * size
 #
 #     def hash(self, key):
 #         my_hash = 0
 #         for letter in key:
-#             my_hash = (my_hash + ord(letter) * 23) % len(self.data_map)
+#             my_hash = (my_hash + ord(letter) * 23) % len(self.data_table)
 #         return my_hash
 #
 #     def print_table(self):
-#         for i, val in enumerate(self.data_map):
+#         for i, val in enumerate(self.data_table):
 #             print(i, ": ", val)
 #
 #     def set_item(self, key, value):
 #         index = self.hash(key)
-#         if self.data_map[index] is None:
-#             self.data_map[index] = []
-#         self.data_map[index].append([key, value])
-#
+#         if self.data_table[index] is None:
+#             self.data_table[index] = []
+#         self.data_table[index].append([key, value])
+
 #     def get_item(self, key):
 #         index = self.hash(key)
-#         if self.data_map[index] is not None:
-#             for i in range(len(self.data_map[index])):
-#                 if self.data_map[index][i][0] == key:
-#                     return self.data_map[index][i][1]
+#         if self.data_table[index] is not None:
+#             for i in range(len(self.data_table[index])):
+#                 if self.data_table[index][i][0] == key:
+#                     return self.data_table[index][i][1]
 #         return None
 #
 #     def keys(self):
@@ -689,35 +691,261 @@
 #
 # print(my_hash_table.keys())
 
+# my_hash_table.print_table()
 
-# Common interview question
-# # this first method is the inefficient way to code this because it is O(n^2)
-# def items_in_common(list1, list2):
-#     for i in list1:
-#         for j in list2:
-#             if i == j:
-#                 return True
-#     return False
+
+#GRAPH
+# class Graph:
+#     def __init__(self):
+#         self.graph = {}
+#
+#     def print_graph(self):
+#         for vertex in self.graph:
+#             print(vertex, ':', self.graph[vertex])
+#
+#     def add_vertex(self, vertex):
+#         if vertex not in self.graph.keys():
+#             self.graph[vertex] = []
+#             return True
+#         return False
+#
+#     def add_edge(self, v1, v2):
+#         if v1 in self.graph.keys():
+#             self.graph[v1].append(v2)
+#         else:
+#             self.graph[1] = [v2]
+#
+#         if v2 in self.graph:
+#             self.graph[v2].append(v1)
+#         else:
+#             self.graph[v2] = [v1]
+#
+#     def remove_edge(self, v1, v2):
+#         if v1 in self.graph.keys() and v2 in self.graph.keys():
+#             try:
+#                 self.graph[v1].remove(v2)
+#                 self.graph[v2].remove(v1)
+#             except ValueError:
+#                 pass
+#             return True
+#         return False
+#
+#     def remove_vertex(self, vertex):
+#         if vertex in self.graph.keys():
+#             # we are looping through the items in the graph and removing the connections at each vertex
+#             for other_vertex in self.graph[vertex]:
+#                 self.graph[other_vertex].remove(vertex)
+#             del self.graph[vertex]
+#             return True
+#         return False
 #
 #
-# list1 = [1, 3, 5]
-# list2 = [2, 4, 5]
+# my_graph = Graph()
 #
-# print(items_in_common(list1, list2))
+# my_graph.add_vertex('A')
+# my_graph.add_vertex('B')
+# my_graph.add_vertex('C')
+# my_graph.add_vertex('D')
+#
+# my_graph.add_edge('A', 'B')
+# my_graph.add_edge('A', 'C')
+# my_graph.add_edge('A', 'D')
+# my_graph.add_edge('B', 'D')
+# my_graph.add_edge('C', 'D')
+#
+# # my_graph.remove_edge('A', 'D')
+#
+# my_graph.remove_vertex('D')
+#
+# my_graph.print_graph()
 
-# This second method is the most efficient way to code this because its O(n)
-def items_in_common(list1, list2):
-    my_dict = {}
-    for i in list1:
-        my_dict[i] = True
-    for j in list2:
-        if j in my_dict:
-            return True
-    return False
+
+# HEAPS
+class MaxHeap:
+    def __init__(self):
+        self.heap = []
+
+    def left_child(self, index):
+        return 2 * index + 1
+
+    def right_child(self, index):
+        return 2 * index + 2
+
+    def parent(self, index):
+        return (index - 1) // 2
+
+    def swap(self, index1, index2):
+        self.heap[index1], self.heap[index2] = self.heap[index2], self.heap[index1]
+
+    def insert(self, value):
+        self.heap.append(value)
+        current = len(self.heap) - 1
+
+        while current > 0 and self.heap[current] > self.heap[self.parent(current)]:
+            self.swap(current, self.parent(current))
+            current = self.parent(current)
+
+    def sink_down(self, index):
+        max_index = index
+        while True:
+            left_index = self.left_child(index)
+            right_index = self.right_child(index)
+
+            if left_index < len(self.heap) and self.heap[left_index] > self.heap[max_index]:
+                max_index = left_index
+
+            if right_index < len(self.heap) and self.heap[right_index] > self.heap[max_index]:
+                max_index = right_index
+
+            if max_index != index:
+                self.swap(index, max_index)
+                index = max_index
+            else:
+                return
+
+    def remove_item(self):
+        if len(self.heap) == 0:
+            return None
+        if len(self.heap) == 1:
+            return self.heap.pop()
+
+        max_value = self.heap[0]
+        self.heap[0] = self.heap.pop()
+        self.sink_down(0)
+        return max_value
+
+    def insert_min_heap(self, value):
+        self.heap.append(value)
+        current = len(self.heap) - 1
+        while current > 0 and self.heap[current] < self.heap[self.parent(current)]:
+            self.swap(current, self.parent(current))
+            current = self.parent(current)
+
+    def remove_min_heap(self):
+        # If heap is empty, return None
+        if len(self.heap) == 0:
+            return None
+
+        # If heap has only one element, pop and return it
+        if len(self.heap) == 1:
+            return self.heap.pop()
+
+        # Store the minimum value (root of the min heap)
+        min_value = min(self.heap)
+
+        # Replace the root of the heap with the last element of the heap and then remove the last element
+        self.heap[0] = self.heap.pop()
+
+        # Restore the heap property by sinking down the new root
+        self.sink_down(0)
+
+        # Return the minimum value that has been removed
+        return min_value
+
+    def sink_down(self, index):
+        min_index = index
+        while True:
+            left_index = self.left_child(index)
+            right_index = self.right_child(index)
+
+            if left_index < len(self.heap) and self.heap[left_index] < self.heap[min_index]:
+                min_index = left_index
+
+            if right_index < len(self.heap) and self.heap[right_index] < self.heap[min_index]:
+                min_index = right_index
+
+            if min_index != index:
+                self.swap(index, min_index)
+                index = min_index
+            else:
+                return
 
 
-list1 = [1, 3, 5]
-list2 = [2, 4, 5]
+my_heap = MaxHeap()
+# my_heap.insert(99)
+# my_heap.insert(75)
+# my_heap.insert(80)
+# my_heap.insert(55)
+# my_heap.insert(60)
+# my_heap.insert(50)
+# my_heap.insert(65)
+#
+# print(my_heap.heap)
+# #
+# # my_heap.remove_item()
+# #
+# # print(my_heap.heap)
+# #
+# my_heap.insert_min_heap(4)
+#
+# print(my_heap.heap)
+#
+# removed = my_heap.remove_min_heap()
+# print(f'Removed: {removed}, Heap: {my_heap.heap}')
+#
+# def find_kth_smallest(nums, k):
+#     # Initialize a new instance of MaxHeap
+#     max_heap = MaxHeap()
+#
+#     # Loop over each number in the input list
+#     for num in nums:
+#         # Insert the current number into the heap. The heap maintains its properties automatically
+#         max_heap.insert(num)
+#
+#         # If the heap size exceeds k, remove the maximum element. This keeps the heap size at k and ensures it
+#         # only contains the smallest k numbers seen so far
+#         if len(max_heap.heap) > k:
+#             max_heap.remove_item()
+#
+#     # After the loop, the heap contains the smallest k numbers. The root of the heap is the kth smallest number,
+#     # remove and return it as the function's result.
+#     return max_heap.remove_item()
+#
+# nums = [[3,2,1,5,6,4], [6,5,4,3,2,1], [1,2,3,4,5,6], [3,2,3,1,2,4,5,5,6]]
+# ks = [2, 3, 4, 7]
+# expected_outputs = [2, 3, 4, 5]
+#
+# for i in range(len(nums)):
+#     print(f'Test case {i+1}...')
+#     print(f'Input: {nums[i]} with k = {ks[i]}')
+#     result = find_kth_smallest(nums[i], ks[i])
+#     print(f'Output: {result}')
+#     print(f'Expected output: {expected_outputs[i]}')
+#     print(f'Test passed: {result == expected_outputs[i]}')
+#     print('---------------------------------------')
 
-print(items_in_common(list1, list2))
+
+# def stream_max(nums):
+#     max_heap = MaxHeap()
+#     max_stream = []
+#
+#     for num in nums:
+#         max_heap.insert(num)
+#         max_stream.append(max_heap.heap[0])
+#
+#     return max_stream
+#
+#
+# test_cases = [
+#     ([], []),
+#     ([1], [1]),
+#     ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5]),
+#     ([1, 2, 2, 1, 3, 3, 3, 2, 2], [1, 2, 2, 2, 3, 3, 3, 3, 3]),
+#     ([-1, -2, -3, -4, -5], [-1, -1, -1, -1, -1])
+# ]
+#
+# for i, (nums, expected) in enumerate(test_cases):
+#     result = stream_max(nums)
+#     print(f'\nTest {i + 1}')
+#     print(f'Input: {nums}')
+#     print(f'Expected Output: {expected}')
+#     print(f'Actual Output: {result}')
+#     if result == expected:
+#         print('Status: Passed')
+#     else:
+#         print('Status: Failed')
+
+
+
+
 
