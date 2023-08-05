@@ -114,7 +114,7 @@
 #         # Check if there's a subarray sum that matches the target.
 #         if current_sum - target in sum_index:
 #             # If there's a match, we return the start and end indices of that subarray.
-#             # 'sum_index[current_sum - target] + 1' gives the start index of the subarray: It accesses the index stored
+#             #'sum_index[current_sum - target] + 1' gives the start index of the subarray: It accesses the index stored
 #             # in sum_index where the subarray begins (current_sum - target). We add 1 because Python is 0-indexed and
 #             # we want the first element of the subarray, not the element before it. 'i' gives the end index of the
 #             # subarray: It's the current index in the loop, where the subarray ends  as the cumulative sum up to this
@@ -205,15 +205,9 @@ def longest_consecutive_sequence(nums):
 
             # Update the longest sequence if the current sequence is longer
             longest_sequence = max(longest_sequence, current_sequence)
-
     return longest_sequence
 
 
 print(longest_consecutive_sequence([100, 4, 200, 1, 3, 2]))
-
-
-# This is me
-
-
 
 

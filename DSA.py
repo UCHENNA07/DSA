@@ -884,7 +884,7 @@ my_heap = MaxHeap()
 # print(f'Removed: {removed}, Heap: {my_heap.heap}')
 #
 # def find_kth_smallest(nums, k):
-#     # Initialize a new instance of MaxHeap
+#     # Initialize a new MaxHeap
 #     max_heap = MaxHeap()
 #
 #     # Loop over each number in the input list
@@ -914,15 +914,29 @@ my_heap = MaxHeap()
 #     print(f'Test passed: {result == expected_outputs[i]}')
 #     print('---------------------------------------')
 
-
+#
 # def stream_max(nums):
+#     # Initialize an empty MaxHeap. This is a data structure where the parent node is always larger than or equal to its
+#     # children.
 #     max_heap = MaxHeap()
+#
+#     # Initialize an empty list to store the maximum numbers encountered so far while traversing the input list.
 #     max_stream = []
 #
+#     # Iterate over each number in the input list.
 #     for num in nums:
+#         # Insert the current number into the MaxHeap. If this number is greater than the current maximum number in the
+#         # heap, the heap will adjust itself so that this number becomes the new maximum
+#         # (i.e., it moves to the root of the heap).
 #         max_heap.insert(num)
+#
+#         # After each insertion, append the maximum value in the heap to the max_stream list. This value is always at
+#         # the root of the heap and can be accessed using max_heap.heap[0]. As a result, max_stream[i] will always be
+#         # the maximum value in nums up to index i.
 #         max_stream.append(max_heap.heap[0])
 #
+#     # After we've finished the loop, return the max_stream list. This list represents the maximum number encountered so
+#     # far for each position in the input list.
 #     return max_stream
 #
 #
@@ -946,6 +960,36 @@ my_heap = MaxHeap()
 #         print('Status: Failed')
 
 
+# Recursion
+# It is a function that calls itself until it doesn't
+# def open_box():
+#     if ball:
+#         return ball
+#     open_box()
 
+# STACK
+
+# def funcThree():
+#     print('Three')
+#
+# def funcTwo():
+#     funcThree()
+#     print('Two')
+#
+# def funcOne():
+#     funcTwo()
+#     print('One')
+#
+# funcOne()
+
+
+# FACTORIAL
+def factorial(n):
+    if n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+
+print(factorial(4))
 
 
