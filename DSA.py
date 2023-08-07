@@ -91,7 +91,6 @@
 #
 #     def insert(self, index, value):
 #         new_node = Node(value)
-#
 #         if index == 0:
 #             new_node.next = self.head
 #             self.head = new_node
@@ -555,89 +554,138 @@
 # my_queue.print_queue()
 
 
-# def is_valid_parentheses(s):
-#     # Create a new Stack to store opening parentheses
-#     stack = []
-#     # Mapping of closing to opening parentheses
-#     mapping = {')': '(', ']': '[', '}': '{'}
-#     # Iterate over each character in the string
-#     for char in s:
-#         # If char is a closing parenthesis
-#         if char in mapping:
-#             # Check if stack is empty or top of stack does not match opening parenthesis
-#             if not stack or stack.pop() != mapping[char]:
-#                 return False
-#         else:
-#             # Push opening parenthesis onto the stack
-#             stack.append(char)
-#     # If the stack is empty, the parentheses are balanced
-#     return not stack
-#
-#
-# string1 = "()"
-# string2 = "{]"
-# print(is_valid_parentheses(string1))
-# print(is_valid_parentheses(string2))
-
 
 # TREES AND BINARY SEARCH TREES
-# class Node:
-#     def __init__(self, value):
-#         self.value = value
-#         self.left = None
-#         self.right = None
-#
-#
-# class BinarySearchTree:
-#     def __init__(self):
-#         self.root = None
-#
-#     def insert(self, value):
-#         new_node = Node(value)
-#         if self.root is None:
-#             self.root = new_node
-#             return True
-#         temp = self.root
-#         while True:
-#             if new_node.value == temp.value:
-#                 return False
-#             if new_node.value < temp.value:
-#                 if temp.left is None:
-#                     temp.left = new_node
-#                     return True
-#                 temp = temp.left
-#             else:
-#                 if temp.right is None:
-#                     temp.right = new_node
-#                     return True
-#                 temp = temp.right
-#
-#     def contains(self, value):
-#         if self.root is None:
-#             return False
-#         temp = self.root
-#         while temp is not None:
-#             if value < temp.value:
-#                 temp = temp.left
-#             elif value > temp.value:
-#                 temp = temp.right
-#             else:
-#                 return True
-#         return False
-#
-#
-# my_tree = BinarySearchTree()
-# my_tree.insert(2)
-# my_tree.insert(1)
-# my_tree.insert(3)
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+class BinarySearchTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        new_node = Node(value)
+        if self.root is None:
+            self.root = new_node
+            return True
+        temp = self.root
+        while True:
+            if new_node.value == temp.value:
+                return False
+            if new_node.value < temp.value:
+                if temp.left is None:
+                    temp.left = new_node
+                    return True
+                temp = temp.left
+            else:
+                if temp.right is None:
+                    temp.right = new_node
+                    return True
+                temp = temp.right
+
+    def contains(self, value):
+        if self.root is None:
+            return False
+        temp = self.root
+        while temp is not None:
+            if value < temp.value:
+                temp = temp.left
+            elif value > temp.value:
+                temp = temp.right
+            else:
+                return True
+        return False
+
+
+    # This Recursion method is for binary search trees
+    def recursive_contains(self, current_node, value):
+        if current_node == None:
+            return False
+        if value == current_node.value:
+            return True
+        if value < current_node.value:
+            return self.recursive_contains(current_node.left, value)
+        if value > current_node.value:
+            return self.recursive_contains(current_node.right, value)
+
+    def r_contains(self, value):
+        return self.recursive_contains(self.root, value)
+
+    def recursive_insert(self, current_node, value):
+        if current_node == None:
+            return Node(value)
+        if value < current_node.value:
+            current_node.left = self.recursive_insert(current_node.left, value)
+        if value > current_node.value:
+            current_node.right = self.recursive_insert(current_node.right, value)
+        return current_node
+
+    def r_insert(self, value):
+        if self.root == None:
+            self.root = Node(value)
+        self.r_insert(self.root, value)
+
+    def min_value(self, current_node):
+        while current_node.left is not None:
+            current_node = current_node.left
+        return current_node.value
+
+    def __delete_node(self, current_node, value):
+        if value < current_node.value:
+            current_node.left = self.__delete_node(current_node.left, value)
+        else:
+            if current_node.left == None and current_node.right == None:
+                return None
+            elif current_node.left == None:
+                current_node = current_node.right
+            elif current_node.right == None:
+                current_node = current_node.left
+            else:
+                sub_tree_min = self.min_value(current_node.right)
+                current_node.value = sub_tree_min
+                current_node.right = self.__delete_node(current_node.right, sub_tree_min)
+        return current_node
+
+    def delete_node(self, value):
+        self.__delete_node(self.root, value)
+
+
+my_tree = BinarySearchTree()
+my_tree.insert(2)
+my_tree.insert(1)
+my_tree.insert(3)
 # my_tree.insert(27)
 
 # print(my_tree.root.value)
 # print(my_tree.root.left.value)
 # print(my_tree.root.right.value)
-#
+
 # print(my_tree.contains(27))
 # print(my_tree.contains(4))
+
+# print('BST Contains 27:')
+# print(my_tree.r_contains(27))
+#
+# print('BST Contains 17:')
+# print(my_tree.r_contains(17))
+
+print('Root:', my_tree.root.value)
+print('Root --> Left:', my_tree.root.left.value)
+print('Root --> Right:', my_tree.root.right.value)
+
+# print(my_tree.min_value(my_tree.root))
+# print(my_tree.min_value(my_tree.root.right))
+
+my_tree.delete_node(2)
+
+print('root:', my_tree.root.value)
+print('root.left:', my_tree.root.left.value)
+print('root.right:', my_tree.root.right)
+
 
 
 # HASH TABLES
@@ -761,107 +809,107 @@
 
 
 # HEAPS
-class MaxHeap:
-    def __init__(self):
-        self.heap = []
-
-    def left_child(self, index):
-        return 2 * index + 1
-
-    def right_child(self, index):
-        return 2 * index + 2
-
-    def parent(self, index):
-        return (index - 1) // 2
-
-    def swap(self, index1, index2):
-        self.heap[index1], self.heap[index2] = self.heap[index2], self.heap[index1]
-
-    def insert(self, value):
-        self.heap.append(value)
-        current = len(self.heap) - 1
-
-        while current > 0 and self.heap[current] > self.heap[self.parent(current)]:
-            self.swap(current, self.parent(current))
-            current = self.parent(current)
-
-    def sink_down(self, index):
-        max_index = index
-        while True:
-            left_index = self.left_child(index)
-            right_index = self.right_child(index)
-
-            if left_index < len(self.heap) and self.heap[left_index] > self.heap[max_index]:
-                max_index = left_index
-
-            if right_index < len(self.heap) and self.heap[right_index] > self.heap[max_index]:
-                max_index = right_index
-
-            if max_index != index:
-                self.swap(index, max_index)
-                index = max_index
-            else:
-                return
-
-    def remove_item(self):
-        if len(self.heap) == 0:
-            return None
-        if len(self.heap) == 1:
-            return self.heap.pop()
-
-        max_value = self.heap[0]
-        self.heap[0] = self.heap.pop()
-        self.sink_down(0)
-        return max_value
-
-    def insert_min_heap(self, value):
-        self.heap.append(value)
-        current = len(self.heap) - 1
-        while current > 0 and self.heap[current] < self.heap[self.parent(current)]:
-            self.swap(current, self.parent(current))
-            current = self.parent(current)
-
-    def remove_min_heap(self):
-        # If heap is empty, return None
-        if len(self.heap) == 0:
-            return None
-
-        # If heap has only one element, pop and return it
-        if len(self.heap) == 1:
-            return self.heap.pop()
-
-        # Store the minimum value (root of the min heap)
-        min_value = min(self.heap)
-
-        # Replace the root of the heap with the last element of the heap and then remove the last element
-        self.heap[0] = self.heap.pop()
-
-        # Restore the heap property by sinking down the new root
-        self.sink_down(0)
-
-        # Return the minimum value that has been removed
-        return min_value
-
-    def sink_down(self, index):
-        min_index = index
-        while True:
-            left_index = self.left_child(index)
-            right_index = self.right_child(index)
-
-            if left_index < len(self.heap) and self.heap[left_index] < self.heap[min_index]:
-                min_index = left_index
-
-            if right_index < len(self.heap) and self.heap[right_index] < self.heap[min_index]:
-                min_index = right_index
-
-            if min_index != index:
-                self.swap(index, min_index)
-                index = min_index
-            else:
-                return
-
-
-my_heap = MaxHeap()
+# class MaxHeap:
+#     def __init__(self):
+#         self.heap = []
+#
+#     def left_child(self, index):
+#         return 2 * index + 1
+#
+#     def right_child(self, index):
+#         return 2 * index + 2
+#
+#     def parent(self, index):
+#         return (index - 1) // 2
+#
+#     def swap(self, index1, index2):
+#         self.heap[index1], self.heap[index2] = self.heap[index2], self.heap[index1]
+#
+#     def insert(self, value):
+#         self.heap.append(value)
+#         current = len(self.heap) - 1
+#
+#         while current > 0 and self.heap[current] > self.heap[self.parent(current)]:
+#             self.swap(current, self.parent(current))
+#             current = self.parent(current)
+#
+#     def sink_down(self, index):
+#         max_index = index
+#         while True:
+#             left_index = self.left_child(index)
+#             right_index = self.right_child(index)
+#
+#             if left_index < len(self.heap) and self.heap[left_index] > self.heap[max_index]:
+#                 max_index = left_index
+#
+#             if right_index < len(self.heap) and self.heap[right_index] > self.heap[max_index]:
+#                 max_index = right_index
+#
+#             if max_index != index:
+#                 self.swap(index, max_index)
+#                 index = max_index
+#             else:
+#                 return
+#
+#     def remove_item(self):
+#         if len(self.heap) == 0:
+#             return None
+#         if len(self.heap) == 1:
+#             return self.heap.pop()
+#
+#         max_value = self.heap[0]
+#         self.heap[0] = self.heap.pop()
+#         self.sink_down(0)
+#         return max_value
+#
+#     def insert_min_heap(self, value):
+#         self.heap.append(value)
+#         current = len(self.heap) - 1
+#         while current > 0 and self.heap[current] < self.heap[self.parent(current)]:
+#             self.swap(current, self.parent(current))
+#             current = self.parent(current)
+#
+#     def remove_min_heap(self):
+#         # If heap is empty, return None
+#         if len(self.heap) == 0:
+#             return None
+#
+#         # If heap has only one element, pop and return it
+#         if len(self.heap) == 1:
+#             return self.heap.pop()
+#
+#         # Store the minimum value (root of the min heap)
+#         min_value = min(self.heap)
+#
+#         # Replace the root of the heap with the last element of the heap and then remove the last element
+#         self.heap[0] = self.heap.pop()
+#
+#         # Restore the heap property by sinking down the new root
+#         self.sink_down(0)
+#
+#         # Return the minimum value that has been removed
+#         return min_value
+#
+#     def sink_down(self, index):
+#         min_index = index
+#         while True:
+#             left_index = self.left_child(index)
+#             right_index = self.right_child(index)
+#
+#             if left_index < len(self.heap) and self.heap[left_index] < self.heap[min_index]:
+#                 min_index = left_index
+#
+#             if right_index < len(self.heap) and self.heap[right_index] < self.heap[min_index]:
+#                 min_index = right_index
+#
+#             if min_index != index:
+#                 self.swap(index, min_index)
+#                 index = min_index
+#             else:
+#                 return
+#
+#
+# my_heap = MaxHeap()
 # my_heap.insert(99)
 # my_heap.insert(75)
 # my_heap.insert(80)
@@ -916,8 +964,8 @@ my_heap = MaxHeap()
 
 #
 # def stream_max(nums):
-#     # Initialize an empty MaxHeap. This is a data structure where the parent node is always larger than or equal to its
-#     # children.
+#     # Initialize an empty MaxHeap. This is a data structure where the parent node is always larger than or equal to
+#     it's children.
 #     max_heap = MaxHeap()
 #
 #     # Initialize an empty list to store the maximum numbers encountered so far while traversing the input list.
@@ -935,8 +983,8 @@ my_heap = MaxHeap()
 #         # the maximum value in nums up to index i.
 #         max_stream.append(max_heap.heap[0])
 #
-#     # After we've finished the loop, return the max_stream list. This list represents the maximum number encountered so
-#     # far for each position in the input list.
+#     # After we've finished the loop, return the max_stream list. This list represents the maximum number encountered
+#     # so far for each position in the input list.
 #     return max_stream
 #
 #
@@ -968,7 +1016,6 @@ my_heap = MaxHeap()
 #     open_box()
 
 # STACK
-
 # def funcThree():
 #     print('Three')
 #
@@ -984,12 +1031,12 @@ my_heap = MaxHeap()
 
 
 # FACTORIAL
-def factorial(n):
-    if n == 1:
-        return 1
-    return n * factorial(n - 1)
-
-
-print(factorial(4))
+# def factorial(n):
+#     if n == 1:
+#         return 1
+#     return n * factorial(n - 1)
+#
+#
+# print(factorial(4))
 
 
