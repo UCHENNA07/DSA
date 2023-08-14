@@ -1,245 +1,349 @@
 # Data Structures and Algorithm
 
 # Singly Linkedlist Constructor
-# class Node:
-#     def __init__(self, value):
-#         self.value = value
-#         self.next = None
-#
-#
-# class LinkedList:
-#     def __init__(self, value):
-#         new_node = Node(value)
-#         self.head = new_node
-#         self.tail = new_node
-#         self.length = 1
-#
-#     def print_list(self):
-#         first = self.head
-#         while first:
-#             print(first.value)
-#             first = first.next
-#
-#     def append(self, value):
-#         new_node = Node(value)
-#         if self.head is None:
-#             self.head = new_node
-#             self.tail = new_node
-#         else:
-#             self.tail.next = new_node
-#             self.tail = new_node
-#         self.length += 1
-#         return True
-#
-#     def pop(self):
-#         if self.length == 0:
-#             return None
-#         temp = self.head
-#         pre = self.head
-#         while temp.next:
-#             pre = temp
-#             temp = temp.next
-#         self.tail = pre
-#         self.tail.next = None
-#         self.length -= 1
-#         if self.length == 0:
-#             self.head = None
-#             self.tail = None
-#         return temp
-#
-#     def prepend(self, value):
-#         new_node = Node(value)
-#         if self.length == 0:
-#             self.head = new_node
-#             self.tail = new_node
-#         else:
-#             new_node.next = self.head
-#             self.head = new_node
-#         self.length += 1
-#         return True
-#
-#     def pop_first(self):
-#         if self.length == 0:
-#             return None
-#         temp = self.head
-#         self.head = self.head.next
-#         temp.next = None
-#         self.length -= 1
-#         if self.length == 0:
-#             self.tail = None
-#         return temp.value
-#
-#     def get(self, index):
-#         if index < 0 or index >= self.length:
-#             return None
-#         # Temp is a variable we set and equal it to head because we would be looping through the list with temp.
-#         temp = self.head
-#         for _ in range(index):
-#             temp = temp.next
-#         return temp.value
-#
-#     def set_value(self, index, value):
-#         current = self.head
-#         count = 0
-#         while current:
-#             if count == index:
-#                 current.data = value
-#                 return
-#             current = current.next
-#             count += 1
-#         raise IndexError("Index out of range")
-#
-#     def insert(self, index, value):
-#         new_node = Node(value)
-#         if index == 0:
-#             new_node.next = self.head
-#             self.head = new_node
-#         else:
-#             current = self.head
-#             count = 0
-#             while current:
-#                 if count == index - 1:
-#                     new_node.next = current.next
-#                     current.next = new_node
-#                     return
-#                 current = current.next
-#                 count += 1
-#
-#             raise IndexError("Index out of range")
-#
-#     def remove_at_index(self, index):
-#         if self.head is None:
-#             return None
-#         if index == 0:
-#             self.head = self.head.next
-#         else:
-#             current = self.head
-#             count = 0
-#             while current:
-#                 if count == index - 1:
-#                     if current.next is None:
-#                         return None
-#                     current.next = current.next.next
-#                     return
-#                 current = current.next
-#                 count += 1
-#             return None
-#
-#      def reverse(self):
-#         # We have to reverse head and tail, so we create a variable to do so.
-#         temp = self.head
-#         self.head = self.tail
-#         self.tail = temp
-#         # We now create two variables after at the right of temp and before at the left of temp
-#         after = temp.next
-#         before = None
-#         # We now have to loop through the length of the list
-#         for _ in range(self.length):
-#             after = temp.next
-#             temp.next = before
-#             before = temp
-#             temp = after
-#
-#     def find_middle_node(self):
-#         # We create two variables slow and fast and set both of them to head
-#         slow = self.head
-#         fast = self.head
-#         while fast is not None and fast.next is not None:
-#             # Here, while the list is not empty and fast.next is not empty, the fast variable moves as twice as fast
-#             # as the slow variable
-#             slow = slow.next
-#             fast = fast.next.next
-#         return slow.value
-#
-#     def has_loop(self):
-#         # Floyd's cycle-finding algorithm, also known as the "tortoise and hare" is similar to find_middle_node
-#         # This function checks if theres a loop in the code and returns True or False
-#         slow = self.head
-#         fast = self.head
-#         while fast is not None and fast.next is not None:
-#             slow = slow.next
-#             fast = fast.next.next
-#             if slow == fast:
-#                 return True
-#         return False
-#
-#     def find_kth_from_end(ll, k):
-#         This function returns the Kth node starting from the end of a linked list
-#         Given this LinkedList: 1 -> 2 -> 3 -> 4 -> 5
-#         If k=1 then return the first node from the end (the last node) which contains the value of 5.
-#         slow = ll.head
-#         fast = ll.head
-#         for _ in range(k):
-#             if fast is None:
-#                 return None
-#             fast = fast.next
-#         while fast:
-#             slow = slow.next
-#             fast = fast.next
-#         return slow
-#
-#     def reverse_between(self, m, n):
-#         # This method takes two integers m and n and reversing the nodes in the linkedlist from index m to index n
-#         # i.e. if you have a list of 1, 2, 3, 4, 5 and you want to reverse the nodes at index 2 and 4, your output will
-#         # be 1, 2, 5, 4, 3
-#         if self.head is None:
-#             return False
-#         before = Node(0)
-#         before.next = self.head
-#         prev = before
-#         for i in range(m):
-#             prev = prev.next
-#         current = prev.next
-#         for i in range(n - m):
-#             temp = current.next
-#             current.next = temp.next
-#             temp.next = prev.next
-#             prev.next = temp
-#         self.head = before.next
-#
-#     def partition_list(self, x):
-#         # In this method, we want to partition a list by giving an input(integer). Any number less than the input will
-#         # be partitioned before the input and any number greater than the input will be partitioned after the input
-#         # but maintaining the order in which the list was provided.
-#         if not self.head:
-#             return None
-#         dummy1 = Node(0)
-#         dummy2 = Node(0)
-#         prev1 = dummy1
-#         prev2 = dummy2
-#         current = self.head
-#         while current:
-#             if current.value < x:
-#                 prev1.next = current
-#                 prev1 = current
-#             else:
-#                 prev2.next = current
-#                 prev2 = current
-#             current = current.next
-#
-#         prev2.next = None
-#         prev1.next = dummy2.next
-#         self.head = dummy1.next
-#
-#     def remove_duplicates(self):
-#         values = set()
-#         previous = None
-#         first_element = self.head
-#         while first_element:
-#             if first_element.value in values:
-#                 previous.next = first_element.next
-#                 self.length -= 1
-#             else:
-#                 values.add(first_element.value)
-#                 previous = first_element
-#             first_element = first_element.next
-#
-#
-# my_linked_list = LinkedList(3)
-# my_linked_list.append(5)
-# my_linked_list.append(4)
-# my_linked_list.append(5)
-# my_linked_list.append(10)
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+
+class LinkedList:
+    def __init__(self, value):
+        new_node = Node(value)
+        self.head = new_node
+        self.tail = new_node
+        self.length = 1
+
+    def print_list(self):
+        first = self.head
+        while first:
+            print(first.value)
+            first = first.next
+
+    def append(self, value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
+        self.length += 1
+        return True
+
+    def pop(self):
+        if self.length == 0:
+            return None
+        temp = self.head
+        pre = self.head
+        while temp.next:
+            pre = temp
+            temp = temp.next
+        self.tail = pre
+        self.tail.next = None
+        self.length -= 1
+        if self.length == 0:
+            self.head = None
+            self.tail = None
+        return temp
+
+    def prepend(self, value):
+        new_node = Node(value)
+        if self.length == 0:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+        self.length += 1
+        return True
+
+    def pop_first(self):
+        if self.length == 0:
+            return None
+        temp = self.head
+        self.head = self.head.next
+        temp.next = None
+        self.length -= 1
+        if self.length == 0:
+            self.tail = None
+        return temp.value
+
+    def get(self, index):
+        if index < 0 or index >= self.length:
+            return None
+        # Temp is a variable we set and equal it to head because we would be looping through the list with temp.
+        temp = self.head
+        for _ in range(index):
+            temp = temp.next
+        return temp.value
+
+    def set_value(self, index, value):
+        current = self.head
+        count = 0
+        while current:
+            if count == index:
+                current.data = value
+                return
+            current = current.next
+            count += 1
+        raise IndexError("Index out of range")
+
+    def insert(self, index, value):
+        new_node = Node(value)
+        if index == 0:
+            new_node.next = self.head
+            self.head = new_node
+        else:
+            current = self.head
+            count = 0
+            while current:
+                if count == index - 1:
+                    new_node.next = current.next
+                    current.next = new_node
+                    return
+                current = current.next
+                count += 1
+
+            raise IndexError("Index out of range")
+
+    def remove_at_index(self, index):
+        if self.head is None:
+            return None
+        if index == 0:
+            self.head = self.head.next
+        else:
+            current = self.head
+            count = 0
+            while current:
+                if count == index - 1:
+                    if current.next is None:
+                        return None
+                    current.next = current.next.next
+                    return
+                current = current.next
+                count += 1
+            return None
+
+    def reverse(self):
+        # We have to reverse head and tail, so we create a variable to do so.
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        # We now create two variables after at the right of temp and before at the left of temp
+        after = temp.next
+        before = None
+        # We now have to loop through the length of the list
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+
+    def find_middle_node(self):
+        # We create two variables slow and fast and set both of them to head
+        slow = self.head
+        fast = self.head
+        while fast is not None and fast.next is not None:
+            # Here, while the list is not empty and fast.next is not empty, the fast variable moves as twice as fast
+            # as the slow variable
+            slow = slow.next
+            fast = fast.next.next
+        return slow.value
+
+    def has_loop(self):
+        # Floyd's cycle-finding algorithm, also known as the "tortoise and hare" is similar to find_middle_node
+        # This function checks if theres a loop in the code and returns True or False
+        slow = self.head
+        fast = self.head
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+
+    def find_kth_from_end(ll, k):
+        # This function returns the Kth node starting from the end of a linked list
+        # Given this LinkedList: 1 -> 2 -> 3 -> 4 -> 5
+        # If k=1 then return the first node from the end (the last node) which contains the value of 5.
+        slow = ll.head
+        fast = ll.head
+        for _ in range(k):
+            if fast is None:
+                return None
+            fast = fast.next
+        while fast:
+            slow = slow.next
+            fast = fast.next
+        return slow
+
+    def reverse_between(self, m, n):
+        # This method takes two integers m and n and reversing the nodes in the linkedlist from index m to index n
+        # i.e. if you have a list of 1, 2, 3, 4, 5 and you want to reverse the nodes at index 2 and 4, your output will
+        # be 1, 2, 5, 4, 3
+        if self.head is None:
+            return False
+        before = Node(0)
+        before.next = self.head
+        prev = before
+        for i in range(m):
+            prev = prev.next
+        current = prev.next
+        for i in range(n - m):
+            temp = current.next
+            current.next = temp.next
+            temp.next = prev.next
+            prev.next = temp
+        self.head = before.next
+
+    def partition_list(self, x):
+        # In this method, we want to partition a list by giving an input(integer). Any number less than the input will
+        # be partitioned before the input and any number greater than the input will be partitioned after the input
+        # but maintaining the order in which the list was provided.
+        if not self.head:
+            return None
+        dummy1 = Node(0)
+        dummy2 = Node(0)
+        prev1 = dummy1
+        prev2 = dummy2
+        current = self.head
+        while current:
+            if current.value < x:
+                prev1.next = current
+                prev1 = current
+            else:
+                prev2.next = current
+                prev2 = current
+            current = current.next
+
+        prev2.next = None
+        prev1.next = dummy2.next
+        self.head = dummy1.next
+
+    def remove_duplicates(self):
+        values = set()
+        previous = None
+        first_element = self.head
+        while first_element:
+            if first_element.value in values:
+                previous.next = first_element.next
+                self.length -= 1
+            else:
+                values.add(first_element.value)
+                previous = first_element
+            first_element = first_element.next
+
+    def bubble_sort(self):
+        # Check if the list has less than 2 elements
+        if self.length < 2:
+            return
+
+        # Initialize the sorted_until pointer to None
+        sorted_until = None
+
+        # Continue sorting until sorted_until reaches the second node
+        while sorted_until != self.head.next:
+            # Initialize current pointer to head of the list
+            current = self.head
+
+            # Iterate through unsorted portion of the list until sorted_until
+            while current.next != sorted_until:
+                next_node = current.next
+
+                # Swap current and next_node values if current is greater
+                if current.value > next_node.value:
+                    current.value, next_node.value = next_node.value, current.value
+
+                # Move current pointer to next node
+                current = current.next
+
+            # Update sorted_until pointer to the last node processed
+            sorted_until = current
+
+    # Define a method to sort a linked list in ascending order
+    # using the selection sort algorithm
+    def selection_sort(self):
+        # If the linked list has less than 2 elements, it is already sorted
+        if self.length < 2:
+            return
+
+        # Start with the first node as the current node
+        current = self.head
+
+        # While there is at least one more node after the current node
+        while current.next is not None:
+            # Assume the current node has the smallest value so far
+            smallest = current
+            # Start with the next node as the inner current node
+            inner_current = current.next
+
+            # Find the node with the smallest value among the remaining nodes
+            while inner_current is not None:
+                if inner_current.value < smallest.value:
+                    smallest = inner_current
+                inner_current = inner_current.next
+
+            # If the node with the smallest value is not the current node,
+            # swap their values
+            if smallest != current:
+                current.value, smallest.value = smallest.value, current.value
+
+                # Move to the next node
+            current = current.next
+
+        # Set the tail of the linked list to the last node processed
+        self.tail = current
+
+    def insertion_sort(self):
+        # Check if the length of the list is less than 2
+        if self.length < 2:
+            return
+
+        # Set the pointer to the first element of the sorted list
+        sorted_list_head = self.head
+
+        # Set the pointer to the second element of the list
+        unsorted_list_head = self.head.next
+
+        # Remove the first element from the sorted list
+        sorted_list_head.next = None
+
+        # Iterate through the unsorted list
+        while unsorted_list_head is not None:
+            # Save the current element
+            current = unsorted_list_head
+
+            # Move the pointer to the next element in the unsorted list
+            unsorted_list_head = unsorted_list_head.next
+
+            # Insert the current element into the sorted list
+            if current.value < sorted_list_head.value:
+                # If the current element is smaller than the first element
+                # in the sorted list, it becomes the new first element
+                current.next = sorted_list_head
+                sorted_list_head = current
+            else:
+                # Otherwise, search for the appropriate position to insert the current element
+                search_pointer = sorted_list_head
+                while search_pointer.next is not None and current.value > search_pointer.next.value:
+                    search_pointer = search_pointer.next
+                current.next = search_pointer.next
+                search_pointer.next = current
+
+        # Update the head and tail of the list
+        self.head = sorted_list_head
+        temp = self.head
+        while temp.next is not None:
+            temp = temp.next
+        self.tail = temp
+
+
+my_linked_list = LinkedList(3)
+my_linked_list.append(5)
+my_linked_list.append(4)
+my_linked_list.append(6)
+my_linked_list.append(10)
 
 # my_linked_list.pop()
 # my_linked_list.prepend(1)
@@ -260,6 +364,35 @@
 # my_linked_list.remove_duplicates()
 
 # my_linked_list.print_list()
+
+
+# print("Linked List Before Sort:")
+# my_linked_list.print_list()
+#
+# my_linked_list.bubble_sort()
+#
+# print("\nSorted Linked List:")
+# my_linked_list.print_list()
+
+
+# print("Linked List Before Sort:")
+# my_linked_list.print_list()
+#
+# my_linked_list.selection_sort()
+#
+# print("\nSorted Linked List:")
+# my_linked_list.print_list()
+
+
+print("Linked List Before Sort:")
+my_linked_list.print_list()
+
+my_linked_list.insertion_sort()
+
+print("\nSorted Linked List:")
+my_linked_list.print_list()
+
+
 
 
 # DOUBLY LINKED LISTS
@@ -556,108 +689,113 @@
 
 
 # TREES AND BINARY SEARCH TREES
-class Node:
-    def __init__(self, value):
-        self.value = value
-        self.left = None
-        self.right = None
-
-
-class BinarySearchTree:
-    def __init__(self):
-        self.root = None
-
-    def insert(self, value):
-        new_node = Node(value)
-        if self.root is None:
-            self.root = new_node
-            return True
-        temp = self.root
-        while True:
-            if new_node.value == temp.value:
-                return False
-            if new_node.value < temp.value:
-                if temp.left is None:
-                    temp.left = new_node
-                    return True
-                temp = temp.left
-            else:
-                if temp.right is None:
-                    temp.right = new_node
-                    return True
-                temp = temp.right
-
-    def contains(self, value):
-        if self.root is None:
-            return False
-        temp = self.root
-        while temp is not None:
-            if value < temp.value:
-                temp = temp.left
-            elif value > temp.value:
-                temp = temp.right
-            else:
-                return True
-        return False
-
-
-    # This Recursion method is for binary search trees
-    def recursive_contains(self, current_node, value):
-        if current_node == None:
-            return False
-        if value == current_node.value:
-            return True
-        if value < current_node.value:
-            return self.recursive_contains(current_node.left, value)
-        if value > current_node.value:
-            return self.recursive_contains(current_node.right, value)
-
-    def r_contains(self, value):
-        return self.recursive_contains(self.root, value)
-
-    def recursive_insert(self, current_node, value):
-        if current_node == None:
-            return Node(value)
-        if value < current_node.value:
-            current_node.left = self.recursive_insert(current_node.left, value)
-        if value > current_node.value:
-            current_node.right = self.recursive_insert(current_node.right, value)
-        return current_node
-
-    def r_insert(self, value):
-        if self.root == None:
-            self.root = Node(value)
-        self.r_insert(self.root, value)
-
-    def min_value(self, current_node):
-        while current_node.left is not None:
-            current_node = current_node.left
-        return current_node.value
-
-    def __delete_node(self, current_node, value):
-        if value < current_node.value:
-            current_node.left = self.__delete_node(current_node.left, value)
-        else:
-            if current_node.left == None and current_node.right == None:
-                return None
-            elif current_node.left == None:
-                current_node = current_node.right
-            elif current_node.right == None:
-                current_node = current_node.left
-            else:
-                sub_tree_min = self.min_value(current_node.right)
-                current_node.value = sub_tree_min
-                current_node.right = self.__delete_node(current_node.right, sub_tree_min)
-        return current_node
-
-    def delete_node(self, value):
-        self.__delete_node(self.root, value)
-
-
-my_tree = BinarySearchTree()
-my_tree.insert(2)
-my_tree.insert(1)
-my_tree.insert(3)
+# class Node:
+#     def __init__(self, value):
+#         self.value = value
+#         self.left = None
+#         self.right = None
+#
+#
+# class BinarySearchTree:
+#     def __init__(self):
+#         self.root = None
+#
+#     def insert(self, value):
+#         new_node = Node(value)
+#         if self.root is None:
+#             self.root = new_node
+#             return True
+#         temp = self.root
+#         while True:
+#             if new_node.value == temp.value:
+#                 return False
+#             if new_node.value < temp.value:
+#                 if temp.left is None:
+#                     temp.left = new_node
+#                     return True
+#                 temp = temp.left
+#             else:
+#                 if temp.right is None:
+#                     temp.right = new_node
+#                     return True
+#                 temp = temp.right
+#
+#     def contains(self, value):
+#         if self.root is None:
+#             return False
+#         temp = self.root
+#         while temp is not None:
+#             if value < temp.value:
+#                 temp = temp.left
+#             elif value > temp.value:
+#                 temp = temp.right
+#             else:
+#                 return True
+#         return False
+#
+#
+#     # This Recursion method is for binary search trees
+#     # This recursive contains method checks if a node(value) is contained in a binary search tree
+#     def recursive_contains(self, current_node, value):
+#         if current_node == None:
+#             return False
+#         if value == current_node.value:
+#             return True
+#         if value < current_node.value:
+#             return self.recursive_contains(current_node.left, value)
+#         if value > current_node.value:
+#             return self.recursive_contains(current_node.right, value)
+#
+#     def r_contains(self, value):
+#         return self.recursive_contains(self.root, value)
+#
+#     def recursive_insert(self, current_node, value):
+#         if current_node == None:
+#             return Node(value)
+#         if value < current_node.value:
+#             current_node.left = self.recursive_insert(current_node.left, value)
+#         if value > current_node.value:
+#             current_node.right = self.recursive_insert(current_node.right, value)
+#         return current_node
+#
+#     def r_insert(self, value):
+#         if self.root == None:
+#             self.root = Node(value)
+#         self.r_insert(self.root, value)
+#
+#     def min_value(self, current_node):
+#         while current_node.left is not None:
+#             current_node = current_node.left
+#         return current_node.value
+#
+#     def __delete_node(self, current_node, value):
+#         if current_node == None:
+#             return None
+#         if value < current_node.value:
+#             current_node.left = self.__delete_node(current_node.left, value)
+#         elif value > current_node.value:
+#             current_node.right = self.__delete_node(current_node.right, value)
+#         else:
+#             if current_node.left == None and current_node.right == None:
+#                 return None
+#             elif current_node.left == None:
+#                 current_node = current_node.right
+#             elif current_node.right == None:
+#                 current_node = current_node.left
+#             else:
+#                 sub_tree_min = self.min_value(current_node.right)
+#                 current_node.value = sub_tree_min
+#                 current_node.right = self.__delete_node(current_node.right, sub_tree_min)
+#         return current_node
+#
+#     def delete_node(self, value):
+#         self.__delete_node(self.root, value)
+#
+#
+# my_tree = BinarySearchTree()
+# my_tree.insert(2)
+# my_tree.insert(1)
+# my_tree.insert(3)
 # my_tree.insert(27)
 
 # print(my_tree.root.value)
@@ -673,18 +811,18 @@ my_tree.insert(3)
 # print('BST Contains 17:')
 # print(my_tree.r_contains(17))
 
-print('Root:', my_tree.root.value)
-print('Root --> Left:', my_tree.root.left.value)
-print('Root --> Right:', my_tree.root.right.value)
+# print('Root:', my_tree.root.value)
+# print('Root --> Left:', my_tree.root.left.value)
+# print('Root --> Right:', my_tree.root.right.value)
 
 # print(my_tree.min_value(my_tree.root))
 # print(my_tree.min_value(my_tree.root.right))
 
-my_tree.delete_node(2)
-
-print('root:', my_tree.root.value)
-print('root.left:', my_tree.root.left.value)
-print('root.right:', my_tree.root.right)
+# my_tree.delete_node(2)
+#
+# print('root:', my_tree.root.value)
+# print('root.left:', my_tree.root.left.value)
+# print('root.right:', my_tree.root.right)
 
 
 
@@ -1039,4 +1177,96 @@ print('root.right:', my_tree.root.right)
 #
 # print(factorial(4))
 
+
+
+# BUBBLE SORT
+# def bubble_sort(my_list):
+#     for i in range(len(my_list) -1, 0, -1):
+#         for j in range(i):
+#             if my_list[j] > my_list[j+1]:
+#                 # swap two items
+#                 temp = my_list[j]
+#                 my_list[j] = my_list[j+1]
+#                 my_list[j+1] = temp
+#     return my_list
+#
+#
+# print(bubble_sort([3, 1, 4, 2, 6, 5]))
+
+
+# For selection sort, we need the index of the items in the list
+# def selection_sort(my_list):
+#     for i in range(len(my_list) -1):
+#         min_index = i
+#         for j in range(i+1, len(my_list)):
+#             if my_list[j] < my_list[min_index]:
+#                 min_index = j
+#         # We will only swap the two items if they are not equal
+#         if i != min_index:
+#             temp = my_list[i]
+#             my_list[i] = my_list[min_index]
+#             my_list[min_index] = temp
+#     return my_list
+#
+#
+# print(selection_sort([4, 2, 6, 5, 1, 3]))
+
+
+# def insertion_sort(my_list):
+#     # for insertion sort, we start from the second item on the list i.e. the item at index of 1
+#     for i in range(1, len(my_list)):
+#         temp = my_list[i]
+#         j = i-1
+#         while temp < my_list[j] and j > -1:
+#             my_list[j+1] = my_list[j]
+#             my_list[j] = temp
+#             j -= 1
+#     return my_list
+#
+#
+# print(insertion_sort([4, 2, 6, 5, 1, 3]))
+
+
+# def bubble_sort(self):
+#     # Check if the list has less than 2 elements
+#     if self.length < 2:
+#         return
+#
+#     # Initialize the sorted_until pointer to None
+#     sorted_until = None
+#
+#     # Continue sorting until sorted_until reaches the second node
+#     while sorted_until != self.head.next:
+#         # Initialize current pointer to head of the list
+#         current = self.head
+#
+#         # Iterate through unsorted portion of the list until sorted_until
+#         while current.next != sorted_until:
+#             next_node = current.next
+#
+#             # Swap current and next_node values if current is greater
+#             if current.value > next_node.value:
+#                 current.value, next_node.value = next_node.value, current.value
+#
+#             # Move current pointer to next node
+#             current = current.next
+#
+#         # Update sorted_until pointer to the last node processed
+#         sorted_until = current
+#
+#
+# my_linked_list = LinkedList(4)
+# my_linked_list.append(2)
+# my_linked_list.append(6)
+# my_linked_list.append(5)
+# my_linked_list.append(1)
+# my_linked_list.append(3)
+#
+# print("Linked List Before Sort:")
+# my_linked_list.print_list()
+#
+# my_linked_list.bubble_sort()
+#
+# print("\nSorted Linked List:")
+# my_linked_list.print_list()
 
