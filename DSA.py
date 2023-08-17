@@ -339,6 +339,51 @@
 #         self.tail = temp
 #
 #
+#     # Method to merge a linked list with another linked list
+#     def merge(self, other_list):
+#         # Get the head node of the other linked list
+#         other_head = other_list.head
+#
+#         # Create a dummy node to hold the merged list
+#         dummy = Node(0)
+#
+#         # Set the current node to the dummy node
+#         current = dummy
+#
+#         # Loop while both lists still have nodes
+#         while self.head is not None and other_head is not None:
+#
+#             # Compare the values of the first nodes in each list
+#             if self.head.value < other_head.value:
+#                 # If the value in the first list is smaller,
+#                 # add it to the current node and move to the next node in the first list
+#                 current.next = self.head
+#                 self.head = self.head.next
+#             else:
+#                 # Otherwise, add the value from the second list
+#                 # and move to the next node in the second list
+#                 current.next = other_head
+#                 other_head = other_head.next
+#
+#             # Move the current node to the next position
+#             current = current.next
+#
+#         # If the first list still has nodes left, add them to the current node
+#         if self.head is not None:
+#             current.next = self.head
+#         else:
+#             # If the second list still has nodes left, add them to the current node
+#             current.next = other_head
+#             # Update the tail of the merged list to be the tail of the second list
+#             self.tail = other_list.tail
+#
+#         # Set the head of the merged list to the next node after the dummy node
+#         self.head = dummy.next
+#
+#         # Update the length of the merged list
+#         self.length += other_list.length
+#
+#
 # my_linked_list = LinkedList(3)
 # my_linked_list.append(5)
 # my_linked_list.append(4)
@@ -1275,34 +1320,47 @@
 # MERGE SORT
 # It's' merging two sorted list and sorts them
 def merge(list1, list2):
-    combined = []
-    i = 0
-    j = 0
+    combined = []  # initialize an empty list to store the merged result
+    i = 0  # initialize the index of list1 to zero
+    j = 0  # initialize the index of list2 to zero
     while i < len(list1) and j < len(list2):
+        # compare the current elements of list1 and list2, and append the smaller one to combined
         if list1[i] < list2[j]:
             combined.append(list1[i])
             i += 1
         else:
             combined.append(list2[j])
             j += 1
+
+    # if there are any remaining elements in list1, add them to combined
     while i < len(list1):
         combined.append(list1[i])
         i += 1
+
+    # if there are any remaining elements in list2, add them to combined
     while j < len(list2):
         combined.append(list2[j])
         j += 1
-    return combined
+
+    return combined  # return the merged and sorted list
 
 
 # print(merge([1, 2, 7, 8], [3, 4, 5, 6]))
 
 
 def merge_sort(my_list):
+    # if the list contains only one element, it is already sorted
     if len(my_list) == 1:
         return my_list
+
+    # find the midpoint index of the list
     mid_index = int(len(my_list) / 2)
+
+    # recursively sort the left and right halves of the list
     left = merge_sort(my_list[:mid_index])
     right = merge_sort(my_list[mid_index:])
+
+    # merge the sorted left and right halves of the list
     return merge(left, right)
 
 
