@@ -265,8 +265,8 @@ def count_divisible_by_5(number_list):
 
     return len(divisible_numbers)
 
-numbers = [10, 15, 20, 25, 30]
 
+numbers = [10, 15, 20, 25, 30]
 print(count_divisible_by_5(numbers))
 
 
