@@ -211,28 +211,66 @@
 # print(pairs)
 
 
-def longest_consecutive_sequence(nums):
-    # Create a set to keep track of the numbers in the array
-    num_set = set(nums)
-    longest_sequence = 0
+# def longest_consecutive_sequence(nums):
+#     # Create a set to keep track of the numbers in the array
+#     num_set = set(nums)
+#     longest_sequence = 0
+#
+#     # Loop through the numbers in the nums array
+#     for num in nums:
+#         # Check if the current number is the start of a new sequence
+#         if num - 1 not in num_set:
+#             current_num = num
+#             current_sequence = 1
+#
+#             # Keep incrementing the current number until the end of the sequence is reached
+#             while current_num + 1 in num_set:
+#                 current_num += 1
+#                 current_sequence += 1
+#
+#             # Update the longest sequence if the current sequence is longer
+#             longest_sequence = max(longest_sequence, current_sequence)
+#     return longest_sequence
+#
+#
+# print(longest_consecutive_sequence([100, 4, 200, 1, 3, 2]))
 
-    # Loop through the numbers in the nums array
-    for num in nums:
-        # Check if the current number is the start of a new sequence
-        if num - 1 not in num_set:
-            current_num = num
-            current_sequence = 1
 
-            # Keep incrementing the current number until the end of the sequence is reached
-            while current_num + 1 in num_set:
-                current_num += 1
-                current_sequence += 1
+# def max_earnings(earning_per_fight):
+#     num_fight = len(earning_per_fight)
+#     if num_fight == 0:
+#         return 0
+#     if num_fight == 1:
+#         return 0
+#
+#     dp = [0] * num_fight
+#     dp[0] = earning_per_fight[0]
+#     dp[1] = earning_per_fight[1]
+#
+#     for i in range(1, num_fight):
+#         dp[i] = max(earning_per_fight[i] + dp[i - 2], dp[i - 1])
+#     return dp[num_fight - 1]
+#
+#
+# earning_per_fight = [6, 2, 5, 94]
+#
+# print(max_earnings(earning_per_fight))
 
-            # Update the longest sequence if the current sequence is longer
-            longest_sequence = max(longest_sequence, current_sequence)
-    return longest_sequence
+
+def count_divisible_by_5(number_list):
+    divisible_numbers = []
+    for num in number_list:
+        if num % 5 == 0:
+            divisible_numbers.append(num)
+
+    return len(divisible_numbers)
+
+numbers = [10, 15, 20, 25, 30]
+
+print(count_divisible_by_5(numbers))
 
 
-print(longest_consecutive_sequence([100, 4, 200, 1, 3, 2]))
+
+
 
 
