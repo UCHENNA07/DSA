@@ -257,20 +257,172 @@
 # print(max_earnings(earning_per_fight))
 
 
-def count_divisible_by_5(number_list):
-    divisible_numbers = []
-    for num in number_list:
-        if num % 5 == 0:
-            divisible_numbers.append(num)
+# def count_divisible_by_5(number_list):
+#     divisible_numbers = []
+#     for num in number_list:
+#         if num % 5 == 0:
+#             divisible_numbers.append(num)
+#
+#     return len(divisible_numbers)
+#
+#
+# numbers = [10, 15, 20, 25, 30]
+# print(count_divisible_by_5(numbers))
 
-    return len(divisible_numbers)
+
+# def remove_element(nums, val):
+#     # Initialize the index variable to 0
+#     i = 0
+#
+#     # Iterate through the array using a while loop
+#     while i < len(nums):
+#         # Check if the current element is equal to the given value
+#         if nums[i] == val:
+#             # If equal, remove the element in-place using pop()
+#             nums.pop(i)
+#         else:
+#             # If not equal, increment the index to move to the next element
+#             i += 1
+#
+#     # Return the new length of the modified array
+#     return len(nums)
+#
+# # Test case 1: Removing a single instance of a value (1) in the middle of the list.
+# nums1 = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+# val1 = 1
+# print("\nRemove a single instance of value", val1, "in the middle of the list.")
+# print("BEFORE:", nums1)
+# new_length1 = remove_element(nums1, val1)
+# print("AFTER:", nums1, "\nNew length:", new_length1)
 
 
-numbers = [10, 15, 20, 25, 30]
-print(count_divisible_by_5(numbers))
+# def find_max_min(my_List):
+#     # Initialize the maximum and minimum variables
+#     # to the first element of the list
+#     maximum = minimum = my_List[0]
+#
+#     # Traverse the list and update the
+#     # maximum and minimum variables
+#     for num in my_List:
+#         if num > maximum:
+#             maximum = num
+#         elif num < minimum:
+#             minimum = num
+#
+#     # Return the maximum and minimum variables
+#     return maximum, minimum
+#
+#
+# print(find_max_min([5, 3, 8, 1, 6, 9]))
 
 
+# def find_longest_string(string_list):
+#     # Initialize the variable to store the longest string to an empty string
+#     longest_string = ""
+#     # Loop through each string in the list of strings
+#     for string in string_list:
+#         # Check if the length of the current string is greater than the
+#         # length of the current longest string
+#         if len(string) > len(longest_string):
+#             # If so, update the longest string to be the current string
+#             longest_string = string
+#     # Return the longest string
+#     return longest_string
+#
+# string_list = ['apple', 'banana', 'kiwi', 'pear']
+# longest = find_longest_string(string_list)
+# print(longest)
 
+
+# def remove_duplicates(nums):
+#     # Return 0 if input list is empty
+#     if not nums:
+#         return 0
+#
+#     # Initialize write_pointer at index 1
+#     write_pointer = 1
+#
+#     # Loop through list starting from index 1
+#     for read_pointer in range(1, len(nums)):
+#         # Check if current element is unique
+#         if nums[read_pointer] != nums[read_pointer - 1]:
+#             # Move unique element to write_pointer
+#             nums[write_pointer] = nums[read_pointer]
+#             # Increment write_pointer for next unique element
+#             write_pointer += 1
+#
+#     # Return new length of list with unique elements
+#     return write_pointer
+#
+#
+# nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+# new_length = remove_duplicates(nums)
+# print("New length:", new_length)
+# print("Unique values in list:", nums[:new_length])
+
+
+# def max_profit(prices):
+#     # Initialize min_price to positive infinity
+#     min_price = float('inf')
+#     # Initialize max_profit to 0
+#     max_profit = 0
+#
+#     # Iterate through the list of stock prices
+#     for price in prices:
+#         # Update min_price with the lowest price so far
+#         min_price = min(min_price, price)
+#         # Calculate profit by selling at the current price
+#         profit = price - min_price
+#         # Update max_profit with the highest profit so far
+#         max_profit = max(max_profit, profit)
+#
+#     # Return the maximum profit after iterating
+#     return max_profit
+#
+#
+# prices = [7, 1, 5, 3, 6, 4]
+# profit = max_profit(prices)
+# print("Test with mixed prices:")
+# print("Prices:", prices)
+# print("Maximum profit:", profit)
+
+
+# def rotate(nums, k):
+#     # Calculate the effective number of steps to rotate
+#     k = k % len(nums)
+#     # Rearrange the elements in the rotated order
+#     nums[:] = nums[-k:] + nums[:-k]
+#
+#
+# nums = [1, 2, 3, 4, 5, 6, 7]
+# k = 3
+# rotate(nums, k)
+# print("Rotated array:", nums)
+
+
+def max_subarray(nums):
+    # Return 0 if input list is empty
+    if not nums:
+        return 0
+
+    # Initialize max_sum and current_sum
+    max_sum = current_sum = nums[0]
+
+    # Iterate through the remaining elements
+    for num in nums[1:]:
+        # Update current_sum
+        current_sum = max(num, current_sum + num)
+        # Update max_sum if current_sum is larger
+        max_sum = max(max_sum, current_sum)
+
+    # Return the maximum subarray sum
+    return max_sum
+
+
+# Example 1: Simple case with positive and negative numbers
+input_case_1 = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+result_1 = max_subarray(input_case_1)
+print("Example 1: Input:", input_case_1, "\nResult:", result_1)
 
 
 
