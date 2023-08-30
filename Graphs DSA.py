@@ -62,3 +62,4 @@
 # my_graph.remove_vertex('D')
 #
 # my_graph.print_graph()
+

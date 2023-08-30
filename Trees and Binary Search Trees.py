@@ -141,7 +141,6 @@ class BinarySearchTree:
         traverse(self.root)
         return results
 
-
     def DFS_In_Order(self):
         results = []
         def traverse(current_node):
@@ -152,6 +151,52 @@ class BinarySearchTree:
                 traverse(current_node.right)
         traverse(self.root)
         return results
+
+    def is_valid_bst(self):
+        # Get node values of the binary search tree in ascending order
+        node_values = self.dfs_in_order()
+        # Iterate through the node values using a for loop
+        for i in range(1, len(node_values)):
+            # Check if each node value is greater than the previous node value
+            if node_values[i] <= node_values[i - 1]:
+                # If node values are not sorted in ascending order, the binary
+                # search tree is not valid, so return False
+                return False
+        # If all node values are sorted in ascending order, the binary search tree
+        # is a valid binary search tree, so return True
+        return True
+
+    def kth_smallest(self, k):
+        # initialize the number of nodes visited to 0
+        self.kth_smallest_count = 0
+        # call the helper function with the root node and k
+        return self.kth_smallest_helper(self.root, k)
+
+    def kth_smallest_helper(self, node, k):
+        if node is None:
+            # if the current node is None, return None
+            return None
+
+        # recursively call the helper function on the left child of the node and store the result in left_result
+        left_result = self.kth_smallest_helper(node.left, k)
+        if left_result is not None:
+            # if left_result is not None, return it
+            return left_result
+
+        # increment the number of nodes visited by 1
+        self.kth_smallest_count += 1
+        if self.kth_smallest_count == k:
+            # if the kth smallest element is found, return the value of the current node
+            return node.value
+
+        # recursively call the helper function on the right child of the node and store the result in right_result
+        right_result = self.kth_smallest_helper(node.right, k)
+        if right_result is not None:
+            # if right_result is not None, return it
+            return right_result
+
+        # if the kth smallest element is not found, return None
+        return None
 
 
 my_tree = BinarySearchTree()
@@ -193,3 +238,4 @@ my_tree.insert(82)
 # print('root:', my_tree.root.value)
 # print('root.left:', my_tree.root.left.value)
 # print('root.right:', my_tree.root.right)
+
