@@ -208,34 +208,34 @@ my_tree.insert(27)
 my_tree.insert(52)
 my_tree.insert(82)
 
-# print(my_tree.BFS())
-# print(my_tree.DFS_Pre_Order())
-# print(my_tree.DFS_Post_Order())
-# print(my_tree.DFS_In_Order())
+print(my_tree.BFS())
+print(my_tree.DFS_Pre_Order())
+print(my_tree.DFS_Post_Order())
+print(my_tree.DFS_In_Order())
 
-# print(my_tree.root.value)
-# print(my_tree.root.left.value)
-# print(my_tree.root.right.value)
-#
-# print(my_tree.contains(27))
-# print(my_tree.contains(4))
-#
-# print('BST Contains 27:')
-# print(my_tree.r_contains(27))
+print(my_tree.root.value)
+print(my_tree.root.left.value)
+print(my_tree.root.right.value)
 
-# print('BST Contains 17:')
-# print(my_tree.r_contains(17))
-#
-# print('Root:', my_tree.root.value)
-# print('Root --> Left:', my_tree.root.left.value)
-# print('Root --> Right:', my_tree.root.right.value)
-#
-# print(my_tree.min_value(my_tree.root))
-# print(my_tree.min_value(my_tree.root.right))
-#
-# my_tree.delete_node(2)
-#
-# print('root:', my_tree.root.value)
-# print('root.left:', my_tree.root.left.value)
-# print('root.right:', my_tree.root.right)
+print(my_tree.contains(27))
+print(my_tree.contains(4))
+
+print('BST Contains 27:')
+print(my_tree.r_contains(27))
+
+print('BST Contains 17:')
+print(my_tree.r_contains(17))
+
+print('Root:', my_tree.root.value)
+print('Root --> Left:', my_tree.root.left.value)
+print('Root --> Right:', my_tree.root.right.value)
+
+print(my_tree.min_value(my_tree.root))
+print(my_tree.min_value(my_tree.root.right))
+
+my_tree.delete_node(2)
+
+print('root:', my_tree.root.value)
+print('root.left:', my_tree.root.left.value)
+print('root.right:', my_tree.root.right)
 
