@@ -72,8 +72,8 @@ time.sleep(10)
 from selenium import webdriver
 import time
 
-chrome_driver_path = YOUR CHROME DRIVERPATH
-driver = webdriver.Chrome(chrome_driver_path)
+# chrome_driver_path = YOUR CHROME DRIVERPATH
+# driver = webdriver.Chrome(chrome_driver_path)
 driver.get("http://orteil.dashnet.org/experiments/cookie/")
 
 # Get cookie to click on.
@@ -145,9 +145,9 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 import time
 
-ACCOUNT_EMAIL = YOUR LOGIN EMAIL
-ACCOUNT_PASSWORD = YOUR LOGIN PASSWORD
-PHONE = YOUR PHONE NUMBER
+# ACCOUNT_EMAIL = YOUR LOGIN EMAIL
+# ACCOUNT_PASSWORD = YOUR LOGIN PASSWORD
+# PHONE = YOUR PHONE NUMBER
 
 
 def abort_application():
